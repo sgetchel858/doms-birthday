@@ -246,7 +246,33 @@ window.TRIP_DATA = (function () {
     },
   };
 
-  return { HOME, PLACES, TRIPS, CROWDS, BLACK_TRAVEL, COMPARE: [
+  /* Expected weather: typical daily high / low in °F for late December to early January
+     (rounded climate averages), the usual sky, and what to pack. `sky` picks the icon:
+     sun | partly | showers | fog. */
+  const WEATHER = {
+    trips: {
+      'andalusian-romance': 'Cool, mostly sunny winter days: sweater weather in the afternoon, coat weather after dark. Granada and Ronda are the chilliest stops, and Málaga is the warmest.',
+      'iberian-slow-travel': 'Mild and changeable in Lisbon, then crisper and sunnier inland. Most of the rain falls on the Lisbon days; Granada has the coldest nights.',
+      'lost-kingdoms': 'The best weather of the year in all three countries: dry and sunny, with almost no rain. Mornings are cool and misty in the north, and afternoons at Angkor are hot.',
+      'slow-kingdoms': 'Dry and sunny the whole way, with warm afternoons and cool mornings. The Nong Khiaw valley is the chilliest, with mist most mornings.',
+    },
+    places: {
+      lisbon: { hi: 58, lo: 47, sky: 'showers', summary: 'Mild, with passing showers', note: 'The mildest of the European stops. Expect sunny spells between Atlantic showers, with rain on about one day in three.', pack: 'Light layers, a rain jacket or trench, and grippy shoes for the slick cobbled hills.' },
+      alentejo: { hi: 56, lo: 39, sky: 'fog', summary: 'Misty mornings, bright afternoons', note: 'Inland and drier than Lisbon. Mornings can be frosty, with fog over the fields, and the afternoons are often clear and still. The evenings are made for the fireplace.', pack: 'A warm coat for the evenings and boots for the country lanes.' },
+      seville: { hi: 61, lo: 42, sky: 'sun', summary: 'Mostly sunny, chilly nights', note: 'Bright, dry days, warm enough to eat lunch outside in the sun. It gets cold quickly once the sun sets, so expect midnight on New Year\'s Eve to be in the mid-40s.', pack: 'A sweater for the day, and a warm coat and scarf for evenings out.' },
+      cordoba: { hi: 59, lo: 38, sky: 'fog', summary: 'Foggy mornings, sunny afternoons', note: 'The city sits low in the river valley, so mornings can start foggy and close to freezing before clearing to a sunny afternoon.', pack: 'Layers you can peel off by lunchtime.' },
+      granada: { hi: 55, lo: 33, sky: 'sun', summary: 'Sunny and cold, frosty nights', note: 'At 2,400 feet, Granada is the coldest city on either Spain trip. Days are usually clear and sunny, nights drop to around freezing, and the Sierra Nevada behind the Alhambra is capped with snow.', pack: 'A real winter coat, plus gloves and a scarf for the sunset viewpoint.' },
+      ronda: { hi: 54, lo: 38, sky: 'partly', summary: 'Cool and breezy, some rainy days', note: 'High on a plateau, Ronda is cool and can be windy at the edge of the gorge. It is the wettest stop on this trip, though sunny spells are common.', pack: 'A windproof layer and waterproof shoes for the trails below the bridge.' },
+      malaga: { hi: 63, lo: 46, sky: 'sun', summary: 'Sunny and mild', note: 'The warmest stop in Spain, sheltered by the mountains. Expect plenty of sunshine and a pleasant walk along the sea, though it is not beach weather.', pack: 'A light jacket is usually enough.' },
+      chiangmai: { hi: 84, lo: 59, sky: 'sun', summary: 'Dry, sunny days, cool mornings', note: 'This is the peak of the cool season: warm sunny afternoons, almost no rain, and fresh mornings that feel like spring. It is noticeably cooler up at Doi Suthep.', pack: 'Summer clothes, a light sweater for mornings, and something that covers shoulders and knees for the temples.' },
+      chiangrai: { hi: 81, lo: 56, sky: 'fog', summary: 'Misty mornings, warm sunny days', note: 'A little cooler than Chiang Mai. Mornings can be misty and chilly, especially in the tea hills, before turning warm and sunny.', pack: 'A light jacket for early starts and the hills.' },
+      luangprabang: { hi: 81, lo: 57, sky: 'fog', summary: 'Foggy mornings, warm afternoons', note: 'The dry season. Mornings start cool, with mist rolling off the Mekong, and the fog burns off into warm, sunny afternoons. It almost never rains.', pack: 'A sweater for dawn and the river boat, and a swimsuit for Kuang Si (the water is chilly).' },
+      nongkhiaw: { hi: 79, lo: 54, sky: 'fog', summary: 'Thick morning mist, mild afternoons', note: 'The valley fills with mist most mornings, and nights get properly chilly, often down to the low 50s. Afternoons are pleasant and sunny once it clears.', pack: 'A fleece or warm sweater for the evenings, since bungalows are rarely heated.' },
+      siemreap: { hi: 88, lo: 70, sky: 'sun', summary: 'Hot, dry and sunny', note: 'The warmest stop on any trip, but this is the coolest and driest time of year at Angkor. Sunrise at the temples is comfortable, and by midday it is hot.', pack: 'Breathable clothes that cover shoulders and knees (required at the temples), a hat and sunscreen.' },
+    },
+  };
+
+  return { HOME, PLACES, TRIPS, CROWDS, BLACK_TRAVEL, WEATHER, COMPARE: [
     { id: 'london', name: 'London' },
     { id: 'edinburgh', name: 'Edinburgh' },
   ] };

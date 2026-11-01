@@ -650,10 +650,12 @@
       ol.appendChild(li);
     });
 
+    renderWeather(trip);
     renderBlackTravel(trip);
 
-    const crowd = $('crowd');
-    requestAnimationFrame(() => window.CrowdChart.render(crowd, trip));
+    // The chart measures its width, so draw it only while its section is open (see the toggle listener).
+    panelTrip = trip;
+    if ($('accCrowd').open) requestAnimationFrame(() => window.CrowdChart.render($('crowd'), trip));
 
     const i = TRIPS.indexOf(trip);
     const prev = TRIPS[(i + TRIPS.length - 1) % TRIPS.length], next = TRIPS[(i + 1) % TRIPS.length];
@@ -664,6 +666,40 @@
       nav.appendChild(b);
     });
     $('panel').scrollTop = 0;
+  }
+
+  let panelTrip = null;
+  $('accCrowd').addEventListener('toggle', (e) => {
+    if (e.target.open && panelTrip) window.CrowdChart.render($('crowd'), panelTrip);
+  });
+
+  // ---------------------------------------------------------------- expected weather
+  const WX_MIN = 30, WX_MAX = 95; // one shared °F scale across every trip
+  const WX_ICONS = {
+    sun: '<circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/>',
+    partly: '<path d="M8.5 3.2v1.6M3.2 8.5h1.6M4.7 4.7l1.1 1.1M12.3 4.7l-1.1 1.1"/><path d="M5.6 10.6a3.4 3.4 0 1 1 6.1-2.9"/><path d="M8.5 19.5h9a3.5 3.5 0 0 0 .4-7 5 5 0 0 0-9.5 1.2A2.9 2.9 0 0 0 8.5 19.5z"/>',
+    showers: '<path d="M7 15.5h10a3.8 3.8 0 0 0 .5-7.6 5.5 5.5 0 0 0-10.6 1.4A3.1 3.1 0 0 0 7 15.5z"/><path d="M8.5 18.5l-1 2.5M12.5 18.5l-1 2.5M16.5 18.5l-1 2.5"/>',
+    fog: '<path d="M7.5 11.5a4.5 4.5 0 0 1 9 0"/><path d="M12 3.5v1.8M5.8 6.1l1.2 1.2M18.2 6.1L17 7.3"/><path d="M3.5 14.5h17M6 17.5h12M8.5 20.5h7"/>',
+  };
+  const wxPct = (f) => `${(((f - WX_MIN) / (WX_MAX - WX_MIN)) * 100).toFixed(1)}%`;
+  function renderWeather(trip) {
+    const WX = window.TRIP_DATA.WEATHER;
+    $('weather').innerHTML = `
+      <p class="wx-summary">${WX.trips[trip.id]}</p>
+      ${uniquePlaces(trip).map((u) => {
+        const d = WX.places[u.place], p = PLACES[u.place];
+        return `<article class="wx-card">
+          <div class="wx-head">
+            <span class="wx-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${WX_ICONS[d.sky]}</svg></span>
+            <h4><span class="bw-num">${u.idx.join('·')}</span>${p.name}</h4>
+            <span class="wx-temps"><b>${d.hi}°</b> / ${d.lo}°F</span>
+          </div>
+          <div class="wx-track" role="img" aria-label="Typical high ${d.hi}°F, low ${d.lo}°F"><span class="wx-range" style="--lo:${wxPct(d.lo)};--hi:${wxPct(d.hi)}"></span></div>
+          <p class="wx-sky">${d.summary}</p>
+          <p class="bw-note">${d.note}</p>
+          <p class="bw-tip"><b>Pack:</b> ${d.pack}</p>
+        </article>`;
+      }).join('')}`;
   }
 
   // ---------------------------------------------------------------- travel as a Black woman

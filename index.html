@@ -49,14 +49,25 @@
         <p class="lede" id="tripTagline"></p>
         <p class="trip-dates" id="tripDates"></p>
 
-        <h3 class="section-h">The route</h3>
-        <ol class="stop-list" id="stopList"></ol>
+        <details class="acc" id="accRoute" open>
+          <summary class="section-h">The route</summary>
+          <div class="acc-body"><ol class="stop-list" id="stopList"></ol></div>
+        </details>
 
-        <h3 class="section-h">Travel as a Black Woman</h3>
-        <div class="bw" id="bwNotes"></div>
+        <details class="acc" id="accWeather">
+          <summary class="section-h">Expected weather</summary>
+          <div class="acc-body"><div class="wx" id="weather"></div></div>
+        </details>
 
-        <h3 class="section-h">How busy will it be?</h3>
-        <div class="crowd" id="crowd"></div>
+        <details class="acc" id="accBlack">
+          <summary class="section-h">Travel as a Black Woman</summary>
+          <div class="acc-body"><div class="bw" id="bwNotes"></div></div>
+        </details>
+
+        <details class="acc" id="accCrowd">
+          <summary class="section-h">How busy will it be?</summary>
+          <div class="acc-body"><div class="crowd" id="crowd"></div></div>
+        </details>
 
         <button class="pick-btn" id="pickBtn" type="button"><svg class="heart-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.2 0 3.6 1.3 5.3 3.3 1.7-2 3.1-3.3 5.3-3.3 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z" fill="currentColor"/></svg>This is the one</button>
         <nav class="trip-nav" id="tripNav" aria-label="Other trips"></nav>
