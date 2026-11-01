@@ -516,20 +516,53 @@
     S.planeT = 0;
   }
 
-  svg.call(d3.drag().clickDistance(6)
-    .filter((e) => S.mode === 'globe' && !e.button)
-    .on('start', () => { S.dragging = true; S.anim = null; S.vel = [0, 0]; svgEl.classList.add('dragging'); $('mapHint').style.opacity = 0; })
-    .on('drag', (e) => {
-      const k = (180 / Math.PI) / S.scale;
-      const dl = e.dx * k, dp = -e.dy * k;
-      S.rot = [S.rot[0] + dl, Math.max(-70, Math.min(70, S.rot[1] + dp)), 0];
-      S.vel = [dl, dp]; S.dirty = true;
-    })
-    .on('end', () => { S.dragging = false; svgEl.classList.remove('dragging'); S.lastInteract = performance.now(); }));
+  // Globe drag via pointer events. On the phone home page the globe sits in a
+  // scrolling page with touch-action: pan-y, so vertical swipes scroll the page
+  // (the browser cancels the pointer) and sideways swipes spin the globe.
+  let drag = null, justDragged = false;
+  const panYOnly = () => getComputedStyle(svgEl).touchAction === 'pan-y';
+  svgEl.addEventListener('pointerdown', (e) => {
+    if (S.mode !== 'globe' || e.button > 0) return;
+    drag = { id: e.pointerId, sx: e.clientX, sy: e.clientY, x: e.clientX, y: e.clientY, moved: false, touch: e.pointerType === 'touch' };
+  });
+  svgEl.addEventListener('pointermove', (e) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    if (!drag.moved) {
+      if (Math.hypot(e.clientX - drag.sx, e.clientY - drag.sy) < 6) return;
+      drag.moved = true; S.dragging = true; S.anim = null; S.vel = [0, 0];
+      svgEl.classList.add('dragging'); $('mapHint').style.opacity = 0;
+      try { svgEl.setPointerCapture(e.pointerId); } catch (_) { /* ignore */ }
+    }
+    const k = (180 / Math.PI) / S.scale;
+    const dl = (e.clientX - drag.x) * k;
+    const dp = drag.touch && panYOnly() ? 0 : -(e.clientY - drag.y) * k;
+    drag.x = e.clientX; drag.y = e.clientY;
+    S.rot = [S.rot[0] + dl, Math.max(-70, Math.min(70, S.rot[1] + dp)), 0];
+    S.vel = [dl, dp]; S.dirty = true;
+  });
+  function endDrag(e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    if (drag.moved) { justDragged = true; setTimeout(() => { justDragged = false; }, 60); }
+    drag = null; S.dragging = false; svgEl.classList.remove('dragging'); S.lastInteract = performance.now();
+  }
+  svgEl.addEventListener('pointerup', endDrag);
+  svgEl.addEventListener('pointercancel', endDrag);
+  svgEl.addEventListener('click', (e) => { if (justDragged) { e.stopPropagation(); e.preventDefault(); } }, true);
+
+  // Phones: intro sits above the globe in one scrolling page. Desktop: it heads the side panel.
+  const phoneMQ = matchMedia('(max-width: 899px)');
+  function placeIntro() {
+    const intro = $('intro');
+    if (phoneMQ.matches) { if (intro.parentNode !== stage) stage.insertBefore(intro, wrap); }
+    else if (intro.parentNode !== $('panelHome')) $('panelHome').prepend(intro);
+  }
+  phoneMQ.addEventListener('change', placeIntro);
+  placeIntro();
 
   function selectTrip(trip) {
     S.hot = null; S.mode = 'trip'; S.trip = trip; S.vel = [0, 0];
     document.documentElement.style.setProperty('--accent', trip.accent);
+    stage.scrollTop = 0;
     stage.classList.add('is-trip');
     tipEl.hidden = true;
     L.pins.style('opacity', 0).style('pointer-events', 'none');
@@ -551,6 +584,7 @@
     const trip = S.trip;
     S.mode = 'globe';
     stage.classList.remove('is-trip');
+    stage.scrollTop = 0;
     document.documentElement.style.removeProperty('--accent');
     L.route.style('opacity', 0); L.stops.style('opacity', 0); L.labels.style('opacity', 0);
     $('mapBack').hidden = true;

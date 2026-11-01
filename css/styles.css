@@ -137,6 +137,7 @@ button { font: inherit; color: inherit; }
 
 .map-wrap {
   position: relative; min-height: 0; overflow: hidden;
+  -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
   transition: margin .6s cubic-bezier(.65, 0, .35, 1), border-radius .6s, box-shadow .6s;
 }
 .stage.is-trip .map-wrap {
@@ -182,6 +183,19 @@ button { font: inherit; color: inherit; }
   margin-left: -20px; border-radius: 4px; background: var(--rule);
 }
 .stage.is-trip .panel { margin-top: 10px; }
+
+/* Phone home page: one scrolling page, intro → globe → trip list */
+@media (max-width: 899px) {
+  .stage:not(.is-trip) {
+    display: block; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+  }
+  .stage:not(.is-trip) .intro { padding: calc(26px + env(safe-area-inset-top)) 20px 0; position: relative; z-index: 3; }
+  .stage:not(.is-trip) .map-wrap { height: clamp(340px, 100vw, 470px); margin-top: -6px; }
+  .stage:not(.is-trip) #globe { touch-action: pan-y; }
+  .stage:not(.is-trip) .panel { overflow: visible; margin-top: -14px; padding-top: 20px; }
+  .stage:not(.is-trip) .trip-list { margin-top: 8px; }
+  .stage.is-trip > .intro { display: none; }
+}
 
 @media (min-width: 900px) {
   .stage, .stage.is-trip {
