@@ -1,0 +1,5 @@
+.DS_Store
+work/raw/
+work/*.json
+work/*.err
+.env

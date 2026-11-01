@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Something's Coming</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6efe6;
+      --ink: #2b2420;
+      --ink-soft: #7a6c62;
+      --accent: #c8664a;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #17130f; --ink: #f3ebe1; --ink-soft: #a6978a; --accent: #e08b6e; }
+    }
+    * { box-sizing: border-box; margin: 0; }
+    html, body { height: 100%; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, system-ui, sans-serif;
+      display: grid;
+      place-items: center;
+      padding: 16px;
+      text-align: center;
+    }
+    .eyebrow {
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+    h1 {
+      font-family: Fraunces, Georgia, serif;
+      font-weight: 300;
+      font-size: clamp(2.5rem, 9vw, 5.5rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+    p {
+      margin-top: 1.5rem;
+      color: var(--ink-soft);
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">12 · 29</div>
+    <h1>Something's<br>coming.</h1>
+    <p>Check back soon.</p>
+  </main>
+</body>
+</html>
