@@ -3,3 +3,6 @@ work/raw/
 work/*.json
 work/*.err
 .env
+itineraries/
+work/batch.log
+work/anchor.jpg
