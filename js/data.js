@@ -103,6 +103,29 @@ window.TRIP_DATA = (function () {
         { id: 'wat-pho', name: 'Wat Pho', img: 'assets/postcards/bangkok-wat-pho.webp', note: 'The giant reclining Buddha, gold from head to mother-of-pearl toes.' },
         { id: 'wat-arun', name: 'Wat Arun', img: 'assets/postcards/bangkok-wat-arun.webp', note: 'The Temple of Dawn, a short boat hop across the river.' },
         { id: 'river', name: 'The Chao Phraya by boat', img: 'assets/postcards/bangkok-river.webp', note: 'A slow morning on the river, past temples and teak houses.' },
+        { id: 'grand-palace', name: 'The Grand Palace', img: 'assets/postcards/bangkok-grand-palace.webp', note: 'Golden spires, mosaic roofs and the temple of the Emerald Buddha.' },
+        { id: 'cooking', name: 'Thai cooking class', img: 'assets/postcards/bangkok-cooking.webp', note: 'Pounding curry paste by hand, then a lunch you made yourselves.' },
+        { id: 'chinatown', name: 'Chinatown street food', img: 'assets/postcards/bangkok-chinatown.webp', note: 'An early dinner on Yaowarat Road, straight from the wok.' },
+      ],
+    },
+    tokyo: {
+      name: 'Tokyo', country: 'Japan', lon: 139.6917, lat: 35.6895, label: 'right',
+      blurb: 'Lantern-lit temples, old wooden lanes and a skyline that never ends.',
+      sights: [
+        { id: 'sensoji', name: 'Senso-ji & Nakamise', img: 'assets/postcards/tokyo-sensoji.webp', note: 'Tokyo\'s oldest temple, through the giant red lantern gate and a street of snack stalls.' },
+        { id: 'yanaka', name: 'Yanaka', img: 'assets/postcards/tokyo-yanaka.webp', note: 'Old wooden lanes, small cafes and temple walls: Tokyo before the skyscrapers.' },
+        { id: 'teamlab', name: 'teamLab Borderless', img: 'assets/postcards/tokyo-teamlab.webp', note: 'A digital art museum where light and flowers drift from room to room.' },
+        { id: 'shibuya-sky', name: 'Shibuya Sky at sunset', img: 'assets/postcards/tokyo-shibuya-sky.webp', note: 'The whole city from the rooftop, with Mount Fuji on a clear evening.' },
+      ],
+    },
+    kyoto: {
+      name: 'Kyoto', country: 'Japan', lon: 135.7681, lat: 35.0116, label: 'left',
+      blurb: 'Temple bells, red shrine gates and lantern-lit lanes at New Year.',
+      sights: [
+        { id: 'bell', name: 'New Year\'s Eve temple bells', img: 'assets/postcards/kyoto-bell.webp', note: 'At midnight the great temple bells ring 108 times to clear away the old year.' },
+        { id: 'fushimi-inari', name: 'Fushimi Inari', img: 'assets/postcards/kyoto-fushimi-inari.webp', note: 'Thousands of red gates, early in the morning on the lower paths.' },
+        { id: 'higashiyama', name: 'Kiyomizu-dera & Yasaka Pagoda', img: 'assets/postcards/kyoto-higashiyama.webp', note: 'Stone-paved lanes climbing past old teahouses to the hillside temple.' },
+        { id: 'gion', name: 'Gion at dusk', img: 'assets/postcards/kyoto-gion.webp', note: 'Wooden teahouses and paper lanterns as the evening comes on.' },
       ],
     },
     istanbul: {
@@ -172,11 +195,27 @@ window.TRIP_DATA = (function () {
       tagline: 'A river birthday, New Year\'s in Chiang Mai, dawn at Angkor, then the Bosphorus.',
       depart: '2026-12-27', ret: '2027-01-15',
       stops: [
-        { place: 'bangkok', from: '2026-12-28', to: '2026-12-30', note: 'Birthday by the river' },
+        { place: 'bangkok', from: '2026-12-28', to: '2026-12-30', note: 'Birthday by the river', sights: ['wat-pho', 'wat-arun', 'river'] },
         { place: 'chiangmai', from: '2026-12-31', to: '2027-01-03', note: 'New Year\'s Eve' },
         { place: 'luangprabang', from: '2027-01-04', to: '2027-01-06', note: 'Dawn monk procession' },
         { place: 'siemreap', from: '2027-01-07', to: '2027-01-10', note: 'Sunrise at Angkor Wat' },
         { place: 'istanbul', from: '2027-01-12', to: '2027-01-14', note: 'Slow days by the Bosphorus' },
+      ],
+    },
+    {
+      id: 'do-it-all',
+      title: 'Do It All',
+      subtitle: 'Japan, Bangkok & Istanbul',
+      countries: ['Japan', 'Thailand', 'Türkiye'],
+      countryIds: ['392', '764', '792'],
+      accent: '#2a9d94',
+      tagline: 'A birthday night over Tokyo, New Year\'s bells in Kyoto, Bangkok\'s palaces, then the Bosphorus.',
+      depart: '2026-12-27', ret: '2027-01-11',
+      stops: [
+        { place: 'tokyo', from: '2026-12-28', to: '2026-12-30', note: 'Birthday night above the city lights' },
+        { place: 'kyoto', from: '2026-12-31', to: '2027-01-03', note: 'New Year\'s Eve temple bells' },
+        { place: 'bangkok', from: '2027-01-04', to: '2027-01-06', note: 'The Grand Palace & Chinatown', sights: ['grand-palace', 'wat-pho', 'cooking', 'chinatown'] },
+        { place: 'istanbul', from: '2027-01-08', to: '2027-01-10', note: 'Slow days by the Bosphorus' },
       ],
     },
   ];
@@ -199,6 +238,8 @@ window.TRIP_DATA = (function () {
     siemreap:  { base: 7,   days: { '2027-01-08': 7.5, '2027-01-09': 7 } },
     bangkok:   { base: 7,   days: { '2026-12-28': 8, '2026-12-29': 8, '2026-12-30': 8.5 } },
     istanbul:  { base: 4,   days: {} },
+    tokyo:     { base: 7,   days: { '2026-12-28': 7.5, '2026-12-29': 7.5, '2026-12-30': 8 } },
+    kyoto:     { base: 7.5, days: { '2026-12-31': 8.5, '2027-01-01': 9.5, '2027-01-02': 9, '2027-01-03': 8.5 } },
   };
 
   /* Travel as a Black woman: our read, based on first-hand accounts from Black women
@@ -212,6 +253,7 @@ window.TRIP_DATA = (function () {
       'andalusian-romance': 'Safe and mostly welcoming. Seville and Málaga are used to visitors from everywhere; expect some curious stares, more of them in the small mountain towns. Rudeness is more likely than real danger.',
       'iberian-slow-travel': 'The most at-home of all the trips. Lisbon has a large, long-established Afro-Portuguese community and has become a favorite of Black American travelers. Spain and the Alentejo countryside are safe, with more stares outside the cities.',
       'this-is-the-one': 'Safe and friendly the whole way. In Southeast Asia, expect lots of curiosity: staring, photo requests and questions about hair, though Bangkok is international enough that you will stand out less. Istanbul is a huge, mixed world city; most Black women feel welcome there, with some stares.',
+      'do-it-all': 'Safe the whole way. Japan is one of the safest countries in the world, though you will be noticed: expect stares and sometimes an empty seat beside you on the train, rarely anything hostile. Bangkok is international and easygoing, and Istanbul is a big, mixed world city where most Black women feel welcome.',
     },
     places: {
       lisbon: { safety: 4, welcome: 5, note: 'Lisbon has a large Afro-Portuguese community with roots in Cape Verde, Angola and Mozambique, and a growing Black expat scene. Many Black travelers say they feel at home here, though some report quieter, hidden prejudice.', tip: 'Try the African Lisbon Tour or a Black-owned food tour. Afro hair salons are easy to find. Watch for pickpockets on Tram 28.' },
@@ -224,6 +266,8 @@ window.TRIP_DATA = (function () {
       chiangmai: { safety: 4, welcome: 3, note: 'Safe and laid-back, with a big expat and digital-nomad community that includes Black residents. Black women there report lots of curiosity about skin and hair, but outright negativity is rare.', tip: 'Skin-whitening products are everywhere, which can be jarring. Bring hair products from home. A polite "no, thank you" to photos or hair touching is fine.' },
       luangprabang: { safety: 5, welcome: 3, note: 'One of the calmest, lowest-crime towns in Asia, and used to foreign visitors. There are few first-hand reports from Black women; expect curiosity and photo requests like elsewhere in the region.', tip: 'Dress modestly near temples (shoulders and knees covered). Bring everything you need for hair and skin.' },
       bangkok: { safety: 4, welcome: 4, note: 'A huge international city with a sizable Black expat and African community, so you will stand out less here than anywhere else in Southeast Asia. Black women report plenty of curiosity but rarely hostility. Colorism shows up in ads and beauty culture.', tip: 'Bangkok has Afro hair salons and shops, so it is the place to stock up before heading north. Use Grab or a hotel car rather than street taxis.' },
+      tokyo: { safety: 5, welcome: 3, note: 'Extremely safe, with a small but growing Black community. Black women describe lots of polite curiosity: staring, compliments, the odd question about hair, and sometimes an empty seat beside them on the train. Open hostility is rare.', tip: 'Afro hair products are hard to find in Japan, so bring what you need. Tokyo has a few Black-owned salons and shops, mostly around Roppongi and Shibuya.' },
+      kyoto: { safety: 5, welcome: 3, note: 'Very safe, but quieter, more traditional and less used to diversity than Tokyo, so expect more staring away from the main sights. A few small traditional restaurants turn away all foreigners; hotels and well-known places are welcoming.', tip: 'Book New Year dinners through the hotel, which also avoids awkward walk-ins. Carry cash for the shrine food stalls.' },
       istanbul: { safety: 4, welcome: 3, note: 'A vast, cosmopolitan city with a growing African community and plenty of Black visitors. Most Black women describe it as welcoming, with some staring, and a few report rude comments or the overcharging aimed at all tourists.', tip: 'Carry a scarf: women cover their hair, shoulders and knees inside mosques. Use BiTaksi or a hotel car to avoid taxi overcharging.' },
       siemreap: { safety: 4, welcome: 3, note: 'A busy tourist hub that is used to visitors from everywhere. There are few first-hand reports from Black women; expect curiosity, photo requests at the temples, and colorism in local beauty culture.', tip: 'Hold your bag on the side away from the road: bag snatching from passing motorbikes happens.' },
     },
@@ -237,6 +281,7 @@ window.TRIP_DATA = (function () {
       'andalusian-romance': 'Cool, mostly sunny winter days: sweater weather in the afternoon, coat weather after dark. Granada and Ronda are the chilliest stops, and Málaga is the warmest.',
       'iberian-slow-travel': 'Mild and changeable in Lisbon, then crisper and sunnier inland. Most of the rain falls on the Lisbon days; Granada has the coldest nights.',
       'this-is-the-one': 'Two seasons in one trip. Southeast Asia is warm, dry and sunny, with hot afternoons in Bangkok and at Angkor and cool, misty mornings in the north. Then it is winter in Istanbul: chilly, gray and often damp.',
+      'do-it-all': 'Winter, then summer, then winter again. Tokyo and Kyoto are cold and mostly clear, Bangkok is hot and dry, and Istanbul is chilly and damp, so pack layers you can peel off.',
     },
     places: {
       lisbon: { hi: 58, lo: 47, sky: 'showers', summary: 'Mild, with passing showers', note: 'The mildest of the European stops. Expect sunny spells between Atlantic showers, with rain on about one day in three.', pack: 'Light layers, a rain jacket or trench, and grippy shoes for the slick cobbled hills.' },
@@ -249,6 +294,8 @@ window.TRIP_DATA = (function () {
       chiangmai: { hi: 84, lo: 59, sky: 'sun', summary: 'Dry, sunny days, cool mornings', note: 'This is the peak of the cool season: warm sunny afternoons, almost no rain, and fresh mornings that feel like spring. It is noticeably cooler up at Doi Suthep.', pack: 'Summer clothes, a light sweater for mornings, and something that covers shoulders and knees for the temples.' },
       luangprabang: { hi: 81, lo: 57, sky: 'fog', summary: 'Foggy mornings, warm afternoons', note: 'The dry season. Mornings start cool, with mist rolling off the Mekong, and the fog burns off into warm, sunny afternoons. It almost never rains.', pack: 'A sweater for dawn and the river boat, and a swimsuit for Kuang Si (the water is chilly).' },
       bangkok: { hi: 90, lo: 73, sky: 'sun', summary: 'Hot, dry and sunny', note: 'Bangkok\'s "cool" season: still hot by the afternoon, but less humid than the rest of the year and nearly rainless. Evenings by the river are lovely.', pack: 'Light, breathable clothes, plus something that covers shoulders and knees for Wat Pho and Wat Arun.' },
+      tokyo: { hi: 50, lo: 36, sky: 'sun', summary: 'Cold, clear and sunny', note: 'Tokyo\'s winter is dry and bright, with blue skies most days and the clearest views of Mount Fuji all year. It gets cold quickly once the sun goes down.', pack: 'A warm coat, a scarf and gloves, and comfortable shoes: Tokyo is a walking city.' },
+      kyoto: { hi: 48, lo: 34, sky: 'partly', summary: 'Cold, crisp days, frosty nights', note: 'Kyoto sits in a basin, so it feels colder than Tokyo, most of all at midnight on New Year\'s Eve and on early shrine visits. Light snow flurries are possible and look lovely on the temple roofs.', pack: 'Your warmest layers, a hat and gloves for the midnight bells, and shoes that slip on and off easily for temples.' },
       istanbul: { hi: 48, lo: 39, sky: 'showers', summary: 'Cold and gray, with rainy spells', note: 'Midwinter on the Bosphorus: cool, damp days with rain on about half of them and the odd bright break. Snow is possible but rare.', pack: 'A warm coat, a scarf, waterproof shoes and an umbrella: a big change from Angkor.' },
       siemreap: { hi: 88, lo: 70, sky: 'sun', summary: 'Hot, dry and sunny', note: 'The warmest stop on any trip, but this is the coolest and driest time of year at Angkor. Sunrise at the temples is comfortable, and by midday it is hot.', pack: 'Breathable clothes that cover shoulders and knees (required at the temples), a hat and sunscreen.' },
     },

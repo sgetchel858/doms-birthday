@@ -62,7 +62,9 @@ window.Postcards = (function () {
       `${fmt(stop.from)}${stop.to !== stop.from ? ' – ' + fmt(stop.to) : ''} · ${nights} night${nights > 1 ? 's' : ''} · Crowds: ${window.CrowdChart.word(crowd).toLowerCase()} (our guess)`;
 
     deck.innerHTML = ''; dots.innerHTML = ''; flipped = new Set(); current = 0;
-    cards = place.sights.map((s, i) => {
+    // A stop can show just some of a city's postcards (e.g. no river boat on the dry-land trip).
+    const sights = stop.sights ? stop.sights.map((id) => place.sights.find((s) => s.id === id)).filter(Boolean) : place.sights;
+    cards = sights.map((s, i) => {
       const id = `${stop.place}-${s.id}`;
       const el = document.createElement('div');
       el.className = 'postcard';
