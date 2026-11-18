@@ -23,9 +23,9 @@ window.CrowdChart = (function () {
     return 'Packed';
   }
 
-  // Build one row per day from Dec 28 to Jan 12 (the days on the ground).
+  // Build one row per day on the ground: the day after departure to the day before the flight home.
   function rows(trip) {
-    const start = parse('2026-12-28'), end = parse('2027-01-12');
+    const start = new Date(+parse(trip.depart) + DAY), end = new Date(+parse(trip.ret) - DAY);
     const out = [];
     for (let t = +start; t <= +end; t += DAY) {
       const dt = new Date(t), day = iso(dt);
@@ -85,7 +85,7 @@ window.CrowdChart = (function () {
     [0, 5, 10].forEach((v) => ax.append('text').attr('x', m.left - 8).attr('y', y(v) + 4).attr('text-anchor', 'end').text(v));
 
     // x labels: a few dates
-    const ticks = ['2026-12-28', '2027-01-01', '2027-01-06', '2027-01-12'].map(parse);
+    const ticks = [data[0].date, parse('2027-01-01'), parse('2027-01-06'), data[data.length - 1].date];
     ticks.forEach((t, i) => ax.append('text')
       .attr('x', x(t)).attr('y', H - m.bottom + 16)
       .attr('text-anchor', i === 0 ? 'start' : i === ticks.length - 1 ? 'end' : 'middle')

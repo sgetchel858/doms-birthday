@@ -115,6 +115,25 @@ window.TRIP_DATA = (function () {
         { id: 'bungalow', name: 'A riverside bungalow', img: 'assets/postcards/nongkhiaw-bungalow.webp', note: 'A near-offline retreat: a balcony, a book and the river.' },
       ],
     },
+    bangkok: {
+      name: 'Bangkok', country: 'Thailand', lon: 100.5018, lat: 13.7563, label: 'left',
+      blurb: 'A riverside city of golden temples, long-tail boats and night lights.',
+      sights: [
+        { id: 'wat-pho', name: 'Wat Pho', img: 'assets/postcards/bangkok-wat-pho.webp', note: 'The giant reclining Buddha, gold from head to mother-of-pearl toes.' },
+        { id: 'wat-arun', name: 'Wat Arun', img: 'assets/postcards/bangkok-wat-arun.webp', note: 'The Temple of Dawn, a short boat hop across the river.' },
+        { id: 'river', name: 'The Chao Phraya by boat', img: 'assets/postcards/bangkok-river.webp', note: 'A slow morning on the river, past temples and teak houses.' },
+        { id: 'birthday', name: 'A riverside birthday', img: 'assets/postcards/bangkok-birthday.webp', note: 'A couples spa, then dinner as the river lights up.' },
+      ],
+    },
+    istanbul: {
+      name: 'Istanbul', country: 'Türkiye', lon: 28.9784, lat: 41.0082, label: 'left',
+      blurb: 'Three calm days where Europe meets Asia, with a view of the Bosphorus.',
+      sights: [
+        { id: 'bosphorus', name: 'The Bosphorus', img: 'assets/postcards/istanbul-bosphorus.webp', note: 'A slow drive along the water, past palaces and old wooden mansions.' },
+        { id: 'skyline', name: 'Domes and minarets', img: 'assets/postcards/istanbul-skyline.webp', note: 'Hagia Sophia and the Blue Mosque across the old city skyline.' },
+        { id: 'breakfast', name: 'A Turkish breakfast', img: 'assets/postcards/istanbul-breakfast.webp', note: 'Simit, honey, olives and tea in small glasses, with a view of the water.' },
+      ],
+    },
     siemreap: {
       name: 'Siem Reap', country: 'Cambodia', lon: 103.8448, lat: 13.3671, label: 'right',
       blurb: 'Angkor: a kingdom of temples swallowed by jungle.',
@@ -195,6 +214,23 @@ window.TRIP_DATA = (function () {
         { place: 'luangprabang', from: '2027-01-11', to: '2027-01-11', note: 'One last night' },
       ],
     },
+    {
+      id: 'this-is-the-one',
+      title: 'This Is the One',
+      subtitle: 'Thailand, Laos, Cambodia & Istanbul',
+      countries: ['Thailand', 'Laos', 'Cambodia', 'Türkiye'],
+      countryIds: ['764', '418', '116', '792'],
+      accent: '#3a63c9',
+      tagline: 'A river birthday, New Year\'s in Chiang Mai, dawn at Angkor, then the Bosphorus.',
+      depart: '2026-12-27', ret: '2027-01-15',
+      stops: [
+        { place: 'bangkok', from: '2026-12-28', to: '2026-12-30', note: 'Birthday spa & riverside dinner' },
+        { place: 'chiangmai', from: '2026-12-31', to: '2027-01-03', note: 'New Year\'s Eve' },
+        { place: 'luangprabang', from: '2027-01-04', to: '2027-01-06', note: 'Dawn monk procession' },
+        { place: 'siemreap', from: '2027-01-07', to: '2027-01-10', note: 'Sunrise at Angkor Wat' },
+        { place: 'istanbul', from: '2027-01-12', to: '2027-01-14', note: 'Slow days by the Bosphorus' },
+      ],
+    },
   ];
 
   /* Crowd levels: a best guess, 0 (empty) to 10 (Edinburgh at Hogmanay).
@@ -215,6 +251,8 @@ window.TRIP_DATA = (function () {
     luangprabang: { base: 6, days: { '2027-01-02': 7, '2027-01-03': 6.5 } },
     nongkhiaw: { base: 3,   days: {} },
     siemreap:  { base: 7,   days: { '2027-01-08': 7.5, '2027-01-09': 7 } },
+    bangkok:   { base: 7,   days: { '2026-12-28': 8, '2026-12-29': 8, '2026-12-30': 8.5 } },
+    istanbul:  { base: 4,   days: {} },
   };
 
   /* Travel as a Black woman: our read, based on first-hand accounts from Black women
@@ -226,9 +264,10 @@ window.TRIP_DATA = (function () {
   const BLACK_TRAVEL = {
     trips: {
       'andalusian-romance': 'Safe and mostly welcoming. Seville and Málaga are used to visitors from everywhere; expect some curious stares, more of them in the small mountain towns. Rudeness is more likely than real danger.',
-      'iberian-slow-travel': 'The most at-home of the four. Lisbon has a large, long-established Afro-Portuguese community and has become a favorite of Black American travelers. Spain and the Alentejo countryside are safe, with more stares outside the cities.',
+      'iberian-slow-travel': 'The most at-home of all the trips. Lisbon has a large, long-established Afro-Portuguese community and has become a favorite of Black American travelers. Spain and the Alentejo countryside are safe, with more stares outside the cities.',
       'lost-kingdoms': 'Safe, gentle and friendly, but you will stand out. Expect lots of curiosity: staring, photo requests, questions about hair and skin. People who have lived it describe it as curiosity far more than hostility. Colorism is real across the region.',
       'slow-kingdoms': 'Safe, gentle and friendly, and the quietest trip, but you will stand out, most of all in Chiang Rai and the Nong Khiaw valley. Expect curiosity and photo requests more than hostility. Colorism is real across the region.',
+      'this-is-the-one': 'Safe and friendly the whole way. In Southeast Asia, expect the same curiosity as the other Asia trips: staring, photo requests and questions about hair, though Bangkok is international enough that you will stand out less. Istanbul is a huge, mixed world city; most Black women feel welcome there, with some stares.',
     },
     places: {
       lisbon: { safety: 4, welcome: 5, note: 'Lisbon has a large Afro-Portuguese community with roots in Cape Verde, Angola and Mozambique, and a growing Black expat scene. Many Black travelers say they feel at home here, though some report quieter, hidden prejudice.', tip: 'Try the African Lisbon Tour or a Black-owned food tour. Afro hair salons are easy to find. Watch for pickpockets on Tram 28.' },
@@ -242,6 +281,8 @@ window.TRIP_DATA = (function () {
       chiangrai: { safety: 4, welcome: 3, note: 'Smaller and less international than Chiang Mai. A Black woman may be the first some locals have met, so expect a lot of staring. It reads as curiosity, not hostility.', tip: 'A smile goes a long way. It is fine to decline photos.' },
       luangprabang: { safety: 5, welcome: 3, note: 'One of the calmest, lowest-crime towns in Asia, and used to foreign visitors. There are few first-hand reports from Black women; expect curiosity and photo requests like elsewhere in the region.', tip: 'Dress modestly near temples (shoulders and knees covered). Bring everything you need for hair and skin.' },
       nongkhiaw: { safety: 4, welcome: 3, note: 'A tiny, remote river village. Very gentle and friendly, but it sees very few Black visitors, so expect plenty of curiosity, especially from kids.', tip: 'Medical care is hours away. Stick to marked paths: there is old unexploded ordnance in the hills.' },
+      bangkok: { safety: 4, welcome: 4, note: 'A huge international city with a sizable Black expat and African community, so you will stand out less here than anywhere else in Southeast Asia. Black women report plenty of curiosity but rarely hostility. Colorism shows up in ads and beauty culture.', tip: 'Bangkok has Afro hair salons and shops, so it is the place to stock up before heading north. Use Grab or a hotel car rather than street taxis.' },
+      istanbul: { safety: 4, welcome: 3, note: 'A vast, cosmopolitan city with a growing African community and plenty of Black visitors. Most Black women describe it as welcoming, with some staring, and a few report rude comments or the overcharging aimed at all tourists.', tip: 'Carry a scarf: women cover their hair, shoulders and knees inside mosques. Use BiTaksi or a hotel car to avoid taxi overcharging.' },
       siemreap: { safety: 4, welcome: 3, note: 'A busy tourist hub that is used to visitors from everywhere. There are few first-hand reports from Black women; expect curiosity, photo requests at the temples, and colorism in local beauty culture.', tip: 'Hold your bag on the side away from the road: bag snatching from passing motorbikes happens.' },
     },
   };
@@ -254,6 +295,7 @@ window.TRIP_DATA = (function () {
       'andalusian-romance': 'Cool, mostly sunny winter days: sweater weather in the afternoon, coat weather after dark. Granada and Ronda are the chilliest stops, and Málaga is the warmest.',
       'iberian-slow-travel': 'Mild and changeable in Lisbon, then crisper and sunnier inland. Most of the rain falls on the Lisbon days; Granada has the coldest nights.',
       'lost-kingdoms': 'The best weather of the year in all three countries: dry and sunny, with almost no rain. Mornings are cool and misty in the north, and afternoons at Angkor are hot.',
+      'this-is-the-one': 'Two seasons in one trip. Southeast Asia is warm, dry and sunny, with hot afternoons in Bangkok and at Angkor and cool, misty mornings in the north. Then it is winter in Istanbul: chilly, gray and often damp.',
       'slow-kingdoms': 'Dry and sunny the whole way, with warm afternoons and cool mornings. The Nong Khiaw valley is the chilliest, with mist most mornings.',
     },
     places: {
@@ -268,6 +310,8 @@ window.TRIP_DATA = (function () {
       chiangrai: { hi: 81, lo: 56, sky: 'fog', summary: 'Misty mornings, warm sunny days', note: 'A little cooler than Chiang Mai. Mornings can be misty and chilly, especially in the tea hills, before turning warm and sunny.', pack: 'A light jacket for early starts and the hills.' },
       luangprabang: { hi: 81, lo: 57, sky: 'fog', summary: 'Foggy mornings, warm afternoons', note: 'The dry season. Mornings start cool, with mist rolling off the Mekong, and the fog burns off into warm, sunny afternoons. It almost never rains.', pack: 'A sweater for dawn and the river boat, and a swimsuit for Kuang Si (the water is chilly).' },
       nongkhiaw: { hi: 79, lo: 54, sky: 'fog', summary: 'Thick morning mist, mild afternoons', note: 'The valley fills with mist most mornings, and nights get properly chilly, often down to the low 50s. Afternoons are pleasant and sunny once it clears.', pack: 'A fleece or warm sweater for the evenings, since bungalows are rarely heated.' },
+      bangkok: { hi: 90, lo: 73, sky: 'sun', summary: 'Hot, dry and sunny', note: 'Bangkok\'s "cool" season: still hot by the afternoon, but less humid than the rest of the year and nearly rainless. Evenings by the river are lovely.', pack: 'Light, breathable clothes, plus something that covers shoulders and knees for Wat Pho and Wat Arun.' },
+      istanbul: { hi: 48, lo: 39, sky: 'showers', summary: 'Cold and gray, with rainy spells', note: 'Midwinter on the Bosphorus: cool, damp days with rain on about half of them and the odd bright break. Snow is possible but rare.', pack: 'A warm coat, a scarf, waterproof shoes and an umbrella: a big change from Angkor.' },
       siemreap: { hi: 88, lo: 70, sky: 'sun', summary: 'Hot, dry and sunny', note: 'The warmest stop on any trip, but this is the coolest and driest time of year at Angkor. Sunrise at the temples is comfortable, and by midday it is hot.', pack: 'Breathable clothes that cover shoulders and knees (required at the temples), a hat and sunscreen.' },
     },
   };

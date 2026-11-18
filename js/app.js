@@ -79,10 +79,10 @@
     { id: 'london', name: 'London', lon: -0.1276, lat: 51.5072, fan: 0.55 },
     { id: 'edinburgh', name: 'Edinburgh', lon: -3.1883, lat: 55.9533, fan: -0.55 },
   ];
-  const FAN = { 'iberian-slow-travel': -0.5, 'andalusian-romance': 0.5, 'lost-kingdoms': -0.6, 'slow-kingdoms': 0.6 };
+  const FAN = { 'iberian-slow-travel': -0.5, 'andalusian-romance': 0.5, 'lost-kingdoms': -0.6, 'slow-kingdoms': 0.6, 'this-is-the-one': 0 };
   const pinData = TRIPS.map((t) => ({ trip: t, place: PLACES[t.stops[0].place], fan: FAN[t.id] || 0 }));
   // Label sides, chosen so neighbors don't collide on the globe.
-  const SIDE = { 'andalusian-romance': 'right', 'iberian-slow-travel': 'left', 'lost-kingdoms': 'left', 'slow-kingdoms': 'right' };
+  const SIDE = { 'andalusian-romance': 'right', 'iberian-slow-travel': 'left', 'lost-kingdoms': 'left', 'slow-kingdoms': 'right', 'this-is-the-one': 'below' };
 
   function buildPins() {
     L.pins.selectAll('*').remove();
